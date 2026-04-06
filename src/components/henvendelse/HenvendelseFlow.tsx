@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { ArrowRight, ArrowLeft, Check } from "lucide-react";
 
 type Svar = {
@@ -102,12 +103,16 @@ function FremdriftsBar({ aktivt, totalt }: { aktivt: number; totalt: number }) {
 }
 
 export function HenvendelseFlow({
-  fraProdukt,
-  fraProduktNavn,
+  fraProdukt: fraProduktProp,
+  fraProduktNavn: fraProduktNavnProp,
 }: {
   fraProdukt?: string;
   fraProduktNavn?: string;
 }) {
+  const searchParams = useSearchParams();
+  const fraProdukt = searchParams.get("produkt") ?? fraProduktProp ?? "";
+  const fraProduktNavn = searchParams.get("produktnavn") ?? fraProduktNavnProp ?? "";
+
   const [aktivtSteg, setAktivtSteg] = useState(0);
   const [svar, setSvar] = useState<Svar>({ fraProdukt, fraProduktNavn });
   const [sender, setSender] = useState(false);
@@ -210,10 +215,20 @@ export function HenvendelseFlow({
     );
   }
 
+  const ProduktBanner = fraProduktNavn ? (
+    <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", padding: "var(--space-3) var(--space-4)", backgroundColor: "var(--color-surface)", border: "1px solid var(--color-border)", borderRadius: "6px", marginBottom: "var(--space-6)" }}>
+      <div style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "var(--color-accent)", flexShrink: 0 }} />
+      <p style={{ fontSize: "var(--font-small)", color: "var(--color-text-secondary)" }}>
+        Du så på: <strong style={{ color: "var(--color-text-primary)" }}>{fraProduktNavn}</strong>
+      </p>
+    </div>
+  ) : null;
+
   // Kontaktskjema (siste steg)
   if (aktivtSteg === steg.length) {
     return (
       <>
+        {ProduktBanner}
         <FremdriftsBar aktivt={aktivtSteg} totalt={totaltSteg} />
         <h2
           style={{
@@ -336,6 +351,7 @@ export function HenvendelseFlow({
 
   return (
     <>
+      {ProduktBanner}
       <FremdriftsBar aktivt={aktivtSteg} totalt={totaltSteg} />
       <h2
         style={{
