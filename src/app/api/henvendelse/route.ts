@@ -13,6 +13,7 @@ export async function POST(req: NextRequest) {
     navn: data.navn ?? "",
     epost: data.epost ?? "",
     telefon: data.telefon ?? "",
+    fraProduktNavn: data.fraProduktNavn ?? "",
     type: data.type ?? "",
     storrelse: data.storrelse ?? "",
     budsjett: data.budsjett ?? "",

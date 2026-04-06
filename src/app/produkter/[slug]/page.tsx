@@ -135,7 +135,7 @@ export default async function ProduktPage({
 
           {/* Primær CTA */}
           <Link
-            href="/henvendelse"
+            href={`/henvendelse?produkt=${produkt.slug}&produktnavn=${encodeURIComponent(produkt.navn)}`}
             style={{
               display: "block",
               textAlign: "center",

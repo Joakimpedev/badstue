@@ -11,6 +11,8 @@ type Svar = {
   navn?: string;
   epost?: string;
   telefon?: string;
+  fraProdukt?: string;
+  fraProduktNavn?: string;
 };
 
 const steg = [
@@ -99,9 +101,15 @@ function FremdriftsBar({ aktivt, totalt }: { aktivt: number; totalt: number }) {
   );
 }
 
-export function HenvendelseFlow() {
+export function HenvendelseFlow({
+  fraProdukt,
+  fraProduktNavn,
+}: {
+  fraProdukt?: string;
+  fraProduktNavn?: string;
+}) {
   const [aktivtSteg, setAktivtSteg] = useState(0);
-  const [svar, setSvar] = useState<Svar>({});
+  const [svar, setSvar] = useState<Svar>({ fraProdukt, fraProduktNavn });
   const [sender, setSender] = useState(false);
   const [sendt, setSendt] = useState(false);
   const [feil, setFeil] = useState("");
@@ -137,6 +145,8 @@ export function HenvendelseFlow() {
       navn: (form.elements.namedItem("navn") as HTMLInputElement).value,
       epost: (form.elements.namedItem("epost") as HTMLInputElement).value,
       telefon: (form.elements.namedItem("telefon") as HTMLInputElement).value,
+      fraProdukt: fraProdukt ?? "",
+      fraProduktNavn: fraProduktNavn ?? "",
     };
 
     try {
