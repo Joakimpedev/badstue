@@ -22,17 +22,18 @@ export function Nav() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+          position: "relative",
         }}
       >
         <Link
           href="/"
           style={{
-            fontFamily: "var(--font-inter), sans-serif",
             fontWeight: 700,
             fontSize: "var(--font-h3)",
             color: "var(--color-text-primary)",
             textDecoration: "none",
             letterSpacing: "-0.02em",
+            flexShrink: 0,
           }}
         >
           Badstue Mannen
@@ -40,7 +41,9 @@ export function Nav() {
 
         <NavLinks />
 
-        <NavCTA />
+        <span className="nav-cta-desktop">
+          <NavCTA />
+        </span>
       </div>
     </header>
   );

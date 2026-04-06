@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { getProdukter } from "@/lib/produkter";
 
@@ -88,46 +89,35 @@ async function ProdukterInner({
         }}
       >
         <div
+          className="grid-produkter"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3, 1fr)",
             gap: "var(--space-6)",
           }}
         >
-          {liste.map((produkt) => (
+          {liste.map((produkt, i) => (
             <Link
               key={produkt.slug}
               href={`/produkter/${produkt.slug}`}
               style={{ textDecoration: "none", display: "block" }}
             >
-              {/* Bildeholder */}
+              {/* Plassholderbilde — bytt med ekte produktbilde */}
               <div
                 style={{
+                  position: "relative",
                   aspectRatio: "4 / 3",
-                  backgroundColor: "var(--color-surface)",
                   borderRadius: "6px",
                   marginBottom: "var(--space-4)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  border: "1px solid var(--color-border)",
                   overflow: "hidden",
-                  /* TODO: bytt med ekte bilde per produkt */
                 }}
               >
-                <p
-                  style={{
-                    fontSize: "0.75rem",
-                    color: "var(--color-text-muted)",
-                    letterSpacing: "0.06em",
-                    textTransform: "uppercase",
-                    textAlign: "center",
-                    padding: "var(--space-4)",
-                  }}
-                >
-                  Bilde kommer
-                  <br />({produkt.navn})
-                </p>
+                <Image
+                  src={`https://picsum.photos/seed/produkt-${produkt.slug}/600/450`}
+                  alt={produkt.navn}
+                  fill
+                  style={{ objectFit: "cover" }}
+                />
               </div>
 
               {/* Info */}

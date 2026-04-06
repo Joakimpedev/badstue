@@ -1,8 +1,10 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export function HeroSection() {
   return (
     <section
+      className="hero-height"
       style={{
         position: "relative",
         height: "90vh",
@@ -10,45 +12,26 @@ export function HeroSection() {
         display: "flex",
         alignItems: "flex-end",
         overflow: "hidden",
-        /* TODO: bytt ut bakgrunnsfarge med ekte bilde:
-           backgroundImage: "url('/images/hero.jpg')",
-           backgroundSize: "cover",
-           backgroundPosition: "center",
-        */
-        backgroundColor: "#2A2420",
       }}
     >
-      {/* Mørk gradient over bildet nedenfra */}
+      {/* Plassholderbilde — bytt ut med ekte hero-bilde */}
+      <Image
+        src="https://picsum.photos/seed/sauna-norway/1920/1080"
+        alt="Badstue i norsk natur"
+        fill
+        style={{ objectFit: "cover", objectPosition: "center" }}
+        priority
+      />
+
+      {/* Gradient */}
       <div
         style={{
           position: "absolute",
           inset: 0,
-          background:
-            "linear-gradient(to top, rgba(20,16,12,0.85) 0%, rgba(20,16,12,0.3) 50%, rgba(20,16,12,0.1) 100%)",
+          background: "linear-gradient(to top, rgba(20,16,12,0.88) 0%, rgba(20,16,12,0.3) 55%, rgba(20,16,12,0.1) 100%)",
           zIndex: 1,
         }}
       />
-
-      {/* Bildeholder-tekst — fjernes når ekte bilde er på plass */}
-      <div
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          color: "rgba(255,255,255,0.15)",
-          fontSize: "0.875rem",
-          letterSpacing: "0.1em",
-          textTransform: "uppercase",
-          zIndex: 1,
-          textAlign: "center",
-          pointerEvents: "none",
-        }}
-      >
-        Legg til hero-bilde her
-        <br />
-        (1920×1080px anbefalt — badstue i norsk natur)
-      </div>
 
       {/* Innhold */}
       <div
@@ -75,7 +58,7 @@ export function HeroSection() {
         </p>
         <h1
           style={{
-            fontSize: "clamp(2.25rem, 5vw, 4rem)",
+            fontSize: "clamp(2rem, 5vw, 4rem)",
             fontWeight: 700,
             color: "#FFFFFF",
             letterSpacing: "-0.03em",
@@ -98,7 +81,6 @@ export function HeroSection() {
               fontSize: "var(--font-body)",
               fontWeight: 600,
               textDecoration: "none",
-              letterSpacing: "-0.01em",
             }}
           >
             Finn din badstue

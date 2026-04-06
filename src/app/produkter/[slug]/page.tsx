@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Check, Truck, Shield, Wrench } from "lucide-react";
 import { getProdukt, getProdukter } from "@/lib/produkter";
@@ -44,6 +45,7 @@ export default async function ProduktPage({
 
       {/* To-kolonne layout */}
       <div
+        className="produkt-detail-grid"
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
@@ -53,67 +55,27 @@ export default async function ProduktPage({
       >
         {/* Venstre — Bildegalleri */}
         <div>
-          {/* Hovedbilde */}
-          <div
-            style={{
-              aspectRatio: "4 / 3",
-              backgroundColor: "var(--color-surface)",
-              borderRadius: "6px",
-              border: "1px solid var(--color-border)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              marginBottom: "var(--space-3)",
-            }}
-          >
-            <p
-              style={{
-                fontSize: "0.75rem",
-                color: "var(--color-text-muted)",
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                textAlign: "center",
-                padding: "var(--space-4)",
-              }}
-            >
-              Hovedbilde
-              <br />
-              ({produkt.navn})
-              <br />
-              <span style={{ opacity: 0.6 }}>800 × 600px anbefalt</span>
-            </p>
+          {/* Hovedbilde — plassholder */}
+          <div style={{ position: "relative", aspectRatio: "4 / 3", borderRadius: "6px", overflow: "hidden", marginBottom: "var(--space-3)" }}>
+            <Image
+              src={`https://picsum.photos/seed/${produkt.slug}-main/800/600`}
+              alt={produkt.navn}
+              fill
+              style={{ objectFit: "cover" }}
+              priority
+            />
           </div>
 
-          {/* Miniatyrbilder */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
-              gap: "var(--space-2)",
-            }}
-          >
+          {/* Miniatyrbilder — plassholdere */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "var(--space-2)" }}>
             {bildeIndekser.map((i) => (
-              <div
-                key={i}
-                style={{
-                  aspectRatio: "1",
-                  backgroundColor: "var(--color-surface)",
-                  borderRadius: "4px",
-                  border: "1px solid var(--color-border)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <p
-                  style={{
-                    fontSize: "0.625rem",
-                    color: "var(--color-text-muted)",
-                    textAlign: "center",
-                  }}
-                >
-                  Bilde {i + 1}
-                </p>
+              <div key={i} style={{ position: "relative", aspectRatio: "1", borderRadius: "4px", overflow: "hidden" }}>
+                <Image
+                  src={`https://picsum.photos/seed/${produkt.slug}-${i}/200/200`}
+                  alt={`${produkt.navn} bilde ${i + 1}`}
+                  fill
+                  style={{ objectFit: "cover" }}
+                />
               </div>
             ))}
           </div>
@@ -252,6 +214,7 @@ export default async function ProduktPage({
 
       {/* Inkludert + spesifikasjoner */}
       <div
+        className="produkt-spec-grid"
         style={{
           marginTop: "var(--space-16)",
           display: "grid",
