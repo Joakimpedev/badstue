@@ -161,6 +161,8 @@ export function HenvendelseFlow({
         body: JSON.stringify(data),
       });
       if (!res.ok) throw new Error("Noe gikk galt");
+      const json = await res.json();
+      console.log("API svar:", json);
       setSendt(true);
     } catch {
       setFeil("Noe gikk galt. Prøv igjen eller ring oss direkte.");

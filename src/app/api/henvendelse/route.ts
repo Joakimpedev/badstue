@@ -30,5 +30,5 @@ export async function POST(req: NextRequest) {
     redirect: "follow",
   });
 
-  return Response.json({ ok: true });
+  return Response.json({ ok: true, mottatt: rad });
 }
