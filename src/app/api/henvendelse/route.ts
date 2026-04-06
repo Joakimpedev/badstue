@@ -21,15 +21,13 @@ export async function POST(req: NextRequest) {
       : "",
   };
 
-  const res = await fetch(scriptUrl, {
+  // Google Apps Script returnerer av og til redirect — følg den og ignorer statuskode
+  await fetch(scriptUrl, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "text/plain" },
     body: JSON.stringify(rad),
+    redirect: "follow",
   });
-
-  if (!res.ok) {
-    return Response.json({ error: "Kunne ikke lagre til Google Sheets" }, { status: 500 });
-  }
 
   return Response.json({ ok: true });
 }
